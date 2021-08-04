@@ -1,0 +1,23 @@
+version: "3.7"
+services:
+        git-server:
+                container_name: git-server
+                build:
+                        dockerfile: gitserver.Dockerfile
+                        context: .
+                restart: always
+                ports:
+                        - "8090:80"
+                volumes:
+                        - ./repos:/var/www/git
+
+        gitlist:
+                container_name: gitlist
+                image: cmanley/gitlist
+                ports:
+                        - "8091:80"
+                environment: 
+                        - GITLIST_THEME=bootstrap3-wide
+                volumes:
+                        - ./repos:/repos:ro
+        
